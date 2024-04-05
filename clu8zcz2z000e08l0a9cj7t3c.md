@@ -1,13 +1,13 @@
 ---
 title: "Active Directory Series - Understanding Domain Trusts"
-seoTitle: "Mastering Domain Trusts in Active Directory: A Comprehensive Guide"
-seoDescription: "Unlock the secrets of domain trusts with our detailed guide. Learn about types, security considerations, and best practices for establishing and managing do"
+seoTitle: "Domain Trusts in Active Directory Overview"
+seoDescription: "Learn Active Directory domain trusts: types, management, and security for smooth cross-domain access"
 datePublished: Tue Mar 26 2024 23:00:37 GMT+0000 (Coordinated Universal Time)
 cuid: clu8zcz2z000e08l0a9cj7t3c
 slug: active-directory-series-understanding-domain-trusts
 cover: https://cdn.hashnode.com/res/hashnode/image/upload/v1711494625142/261e3cd7-a699-4592-b1a8-c252027be535.png
 ogImage: https://cdn.hashnode.com/res/hashnode/image/upload/v1712300364850/266f38bc-e84a-4f00-a256-a904f5048831.png
-tags: ad, active-directory
+tags: ad, active-directory, windows-server
 
 ---
 

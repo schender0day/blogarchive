@@ -1,10 +1,10 @@
 ---
-title: "Fuzzing series - Vhost Fuzzing with Ffuf - 02"
+title: "Fuzzing series - Vhost Fuzzing and filtering with Ffuf - 03"
 seoTitle: "Mastering Vhost Fuzzing: Identifying Hidden Sub-domains & Virtual Host"
 seoDescription: "Discover hidden sub-domains and VHosts with our Vhost Fuzzing guide using Ffuf. Uncover both public and non-public domains on the same server"
 datePublished: Sat Apr 06 2024 18:42:45 GMT+0000 (Coordinated Universal Time)
 cuid: cluofzq8s000108ld1aoz0yw7
-slug: fuzzing-series-vhost-fuzzing-with-ffuf-02
+slug: fuzzing-series-vhost-fuzzing-and-filtering-with-ffuf-03
 cover: https://cdn.hashnode.com/res/hashnode/image/upload/v1712428879723/a3b5fa05-2128-439a-b887-376ed6ce3bcd.png
 ogImage: https://cdn.hashnode.com/res/hashnode/image/upload/v1712428924258/603e0026-2f9c-4e8e-b251-dc25f9374c5b.png
 tags: hacking, pentesting, cybersecurity-1, pentesting-tools, fluf

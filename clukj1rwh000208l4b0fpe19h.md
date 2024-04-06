@@ -47,43 +47,9 @@ This guide aims to equip you with the knowledge and skills to proficiently use F
     
     * Use the command format: `ffuf -w /path/to/wordlist:FUZZ -u` [`http://SERVER_IP:PORT/FUZZ`](http://SERVER_IP:PORT/FUZZ). Replace `/path/to/wordlist` with your wordlist path and [`http://SERVER_IP:PORT`](http://SERVER_IP:PORT) with your target URL.
         
-    * When using `ffuf`, the `FUZZ` keyword plays a central role. It serves as a marker in the command syntax, indicating where the tool should inject the payloads from the specified wordlist into the request being sent to the target server.
-        
 3. **Analyzing the Output**:
     
     * Successful discoveries are usually indicated by HTTP status codes other than 404, such as 200 or 301, signaling accessible directories.
-        
-    * ```powershell
-        s-academy-1]─[10.10.14.246]─[htb-ac-79442@htb-y8pfeup9ds]─[~]
-        └──╼ [★]$ ffuf -w ./SecLists/Discovery/Web-Content/directory-list-2.3-small.txt:FUZZ -u http://94.237.62.149:53122/FUZZ 
-                /'___\  /'___\           /'___\       
-               /\ \__/ /\ \__/  __  __  /\ \__/       
-               \ \ ,__\\ \ ,__\/\ \/\ \ \ \ ,__\      
-                \ \ \_/ \ \ \_/\ \ \_\ \ \ \ \_/      
-                 \ \_\   \ \_\  \ \____/  \ \_\       
-                  \/_/    \/_/   \/___/    \/_/       
-        
-               v2.1.0
-        ________________________________________________
-        
-         :: Method           : GET
-         :: URL              : http://94.237.62.149:53122/FUZZ
-         :: Wordlist         : FUZZ: /home/htb-ac-79442/SecLists/Discovery/Web-Content/directory-list-2.3-small.txt
-         :: Follow redirects : false
-         :: Calibration      : false
-         :: Timeout          : 10
-         :: Threads          : 40
-         :: Matcher          : Response status: 200-299,301,302,307,401,403,405,500
-        ________________________________________________
-        
-        #                       [Status: 200, Size: 986, Words: 423, Lines: 56, Duration: 134ms]
-        #                       [Status: 200, Size: 986, Words: 423, Lines: 56, Duration: 132ms]
-        # on at least 3 different hosts [Status: 200, Size: 986, Words: 423, Lines: 56, Duration: 132ms]
-        blog                    [Status: 301, Size: 322, Words: 20, Lines: 10, Duration: 132ms]
-        #                       [Status: 200, Size: 986, Words: 423, Lines: 56, Duration: 133ms]
-                                [Status: 200, Size: 986, Words: 423, Lines: 56, Duration: 133ms]
-        forum                   [Status: 301, Size: 323, Words: 20, Lines: 10, Duration: 132ms]
-        ```
         
 
 ---
@@ -96,7 +62,6 @@ After discovering a directory like `/blog`, your next step is to uncover any hid
     
     * Determine the server's file types (.php, .html, .aspx, etc.) by examining the server or employing a wordlist of common extensions for fuzzing.
         
-    
 2. **Executing Page Fuzzing**:
     
     * Commands for fuzzing might look like:
@@ -109,71 +74,6 @@ After discovering a directory like `/blog`, your next step is to uncover any hid
         
     * Replace `/path/to/extension-wordlist` with your extensions wordlist path.
         
-    * ```powershell
-        [10.10.14.246]─[htb-ac-79442@htb-y8pfeup9ds]─[~]
-        └──╼ [★]$ ffuf -w ./SecLists/Discovery/Web-Content/web-extensions.txt:FUZZ -u http://94.237.62.149:53122/blog/indexFUZZ 
-                /'___\  /'___\           /'___\       
-               /\ \__/ /\ \__/  __  __  /\ \__/       
-               \ \ ,__\\ \ ,__\/\ \/\ \ \ \ ,__\      
-                \ \ \_/ \ \ \_/\ \ \_\ \ \ \ \_/      
-                 \ \_\   \ \_\  \ \____/  \ \_\       
-                  \/_/    \/_/   \/___/    \/_/       
-        
-               v2.1.0
-        ________________________________________________
-        
-         :: Method           : GET
-         :: URL              : http://94.237.62.149:53122/blog/indexFUZZ
-         :: Wordlist         : FUZZ: /home/htb-ac-79442/SecLists/Discovery/Web-Content/web-extensions.txt
-         :: Follow redirects : false
-         :: Calibration      : false
-         :: Timeout          : 10
-         :: Threads          : 40
-         :: Matcher          : Response status: 200-299,301,302,307,401,403,405,500
-        ________________________________________________
-        
-        .phps                   [Status: 403, Size: 281, Words: 20, Lines: 10, Duration: 3960ms]
-        .php                    [Status: 200, Size: 0, Words: 1, Lines: 1, Duration: 4968ms]
-        :: Progress: [41/41] :: Job [1/1] :: 8 req/sec :: Duration: [0:00:05] :: Errors: 0 ::
-        ```
-        
-        Fuzzing the page:
-        
-    * ```powershell
-        ]$ ffuf -w ./SecLists/Discovery/Web-Content/directory-list-2.3-small.txt:FUZZ -u http://94.237.62.149:53122/blog/FUZZ.php
-        
-                /'___\  /'___\           /'___\       
-               /\ \__/ /\ \__/  __  __  /\ \__/       
-               \ \ ,__\\ \ ,__\/\ \/\ \ \ \ ,__\      
-                \ \ \_/ \ \ \_/\ \ \_\ \ \ \ \_/      
-                 \ \_\   \ \_\  \ \____/  \ \_\       
-                  \/_/    \/_/   \/___/    \/_/       
-        
-               v2.1.0
-        ________________________________________________
-        
-         :: Method           : GET
-         :: URL              : http://94.237.62.149:53122/blog/FUZZ.php
-         :: Wordlist         : FUZZ: /home/htb-ac-79442/SecLists/Discovery/Web-Content/directory-list-2.3-small.txt
-         :: Follow redirects : false
-         :: Calibration      : false
-         :: Timeout          : 10
-         :: Threads          : 40
-         :: Matcher          : Response status: 200-299,301,302,307,401,403,405,500
-        ________________________________________________
-        
-        index                   [Status: 200, Size: 0, Words: 1, Lines: 1, Duration: 134ms]
-                             [Status: 200, Size: 0, Words: 1, Lines: 1, Duration: 3179ms]
-                                [Status: 403, Size: 281, Words: 20, Lines: 10, Duration: 3177ms]
-        home                    [Status: 200, Size: 1046, Words: 438, Lines: 58, Duration: 4185ms]
-                                [Status: 403, Size: 281, Words: 20, Lines: 10, Duration: 133ms]
-        [WARN] Caught keyboard interrupt (Ctrl-C)
-        ```
-        
-    * Found flag:
-        
-    * ![](https://cdn.hashnode.com/res/hashnode/image/upload/v1712181641591/ae708462-159c-4e5b-a651-f7c4b2fca45b.png align="center")
-        
 
 ---
 
@@ -185,13 +85,89 @@ To automate the exploration of directories and their subdirectories, recursive f
     
     * Use the command: `ffuf -w wordlist:FUZZ -u` [`http://SERVER_IP:PORT/FUZZ`](http://SERVER_IP:PORT/FUZZ) `-recursion -recursion-depth 1 -e .php -v`, enabling Ffuf to navigate through directory levels automatically.
         
-        ```powershell
-        └──╼ [★]$ ffuf -w ./SecLists/Discovery/Web-Content/directory-list-2.3-small.txt:FUZZ -u http://94.237.62.149:53122/blog/FUZZ -recursion --recursion-depth 1 -e .php -v
-        
-        ```
-        
-* Above command will end up finding below flag.
+
+### **Recursive Fuzzing Visualization**
+
+### **Starting Point:**
+
+* Your `ffuf` command targets the root of the website.
     
+* Wordlist contains entries like `admin`, `login`, and `images`.
+    
+
+### **Command:**
+
+```powershell
+shellCopy code
+ffuf -w wordlist.txt:FUZZ -u <http://192.168.1.100:8080/FUZZ> -recursion -recursion-depth 1 -e .php -v
+
+```
+
+### **Fuzzing Process Visualization:**
+
+1. **Initial Fuzzing at Root Level**:
+    
+    * [`http://192.168.1.100:8080/admin`](http://192.168.1.100:8080/admin)
+        
+    * [`http://192.168.1.100:8080/login`](http://192.168.1.100:8080/login)
+        
+    * [`http://192.168.1.100:8080/images`](http://192.168.1.100:8080/images)
+        
+
+Suppose `ffuf` finds that the `/admin` and `/images` directories exist because the server returns a `200 OK` status for these URLs.
+
+1. **Recursion - 1 Level Deep**:
+    
+    * Since both `/admin` and `/images` directories exist, `ffuf` will now go one level deep into these directories using the same wordlist.
+        
+    * It appends each wordlist entry to these base URLs and checks again.
+        
+
+### **URLs Visited During Recursion:**
+
+For `/admin` directory:
+
+* [`http://192.168.1.100:8080/admin/settings.php`](http://192.168.1.100:8080/admin/settings.php)
+    
+* [`http://192.168.1.100:8080/admin/dashboard.php`](http://192.168.1.100:8080/admin/dashboard.php)
+    
+* [`http://192.168.1.100:8080/admin/login.php`](http://192.168.1.100:8080/admin/login.php)
+    
+
+For `/images` directory:
+
+* [`http://192.168.1.100:8080/images/upload.php`](http://192.168.1.100:8080/images/upload.php)
+    
+* [`http://192.168.1.100:8080/images/gallery.php`](http://192.168.1.100:8080/images/gallery.php)
+    
+
+Assuming our wordlist includes `settings`, `dashboard`, `login`, `upload`, and `gallery` (with `.php` extension due to `-e .php`), `ffuf` will generate these URLs to test for their existence.
+
+### **Visual Representation:**
+
+Here's a simplified directory tree visualization showing how `ffuf` explores the directories:
+
+```bash
+bashCopy code
+<http://192.168.1.100:8080/>
+│
+├── /admin/ [200 OK]
+│   ├── settings.php [Fuzzed and Found]
+│   ├── dashboard.php [Fuzzed and Found]
+│   └── login.php [Fuzzed and Found]
+│
+└── /images/ [200 OK]
+    ├── upload.php [Fuzzed and Found]
+    └── gallery.php [Fuzzed and Found]
+
+```
+
+* **First Layer (Root)**: `ffuf` starts with the root directory, appending entries from the wordlist to the base URL.
+    
+* **Second Layer (1 Level Deep)**: Upon finding accessible directories in the first layer (`/admin/`, `/images/`), it proceeds to append wordlist entries to these directories as well, but it stops after this level because of `recursion-depth 1`.
+    
+
+This process allows `ffuf` to methodically identify directories and files that are up to one level deep from the root, based on the entries in the provided wordlist.
 
 ---
 

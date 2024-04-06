@@ -45,7 +45,7 @@ This guide aims to equip you with the knowledge and skills to proficiently use F
         
 2. **Crafting Your Command**:
     
-    * Use the command format: `ffuf -w /path/to/wordlist:FUZZ -u` [`http://SERVER_IP:PORT/FUZZ`](http://SERVER_IP:PORT/FUZZ). Replace `/path/to/wordlist` with your wordlist path and [`http://SERVER_IP:PORT`](http://SERVER_IP:PORT) with your target URL.
+    * Use the command format: `ffuf -w /path/to/wordlist:FUZZ -u`[`http://SERVER_IP:PORT/FUZZ`](http://SERVER_IP:PORT/FUZZ). Replace `/path/to/wordlist` with your wordlist path and [`http://SERVER_IP:PORT`](http://SERVER_IP:PORT) with your target URL.
         
 3. **Analyzing the Output**:
     
@@ -69,7 +69,6 @@ After discovering a directory like `/blog`, your next step is to uncover any hid
         ```bash
         
         ffuf -w /path/to/extension-wordlist:FUZZ -u http://SERVER_IP:PORT/blog/indexFUZZ
-        
         ```
         
     * Replace `/path/to/extension-wordlist` with your extensions wordlist path.
@@ -83,7 +82,7 @@ To automate the exploration of directories and their subdirectories, recursive f
 
 * **Enabling Recursive Fuzzing**:
     
-    * Use the command: `ffuf -w wordlist:FUZZ -u` [`http://SERVER_IP:PORT/FUZZ`](http://SERVER_IP:PORT/FUZZ) `-recursion -recursion-depth 1 -e .php -v`, enabling Ffuf to navigate through directory levels automatically.
+    * Use the command: `ffuf -w wordlist:FUZZ -u`[`http://SERVER_IP:PORT/FUZZ`](http://SERVER_IP:PORT/FUZZ)`-recursion -recursion-depth 1 -e .php -v`, enabling Ffuf to navigate through directory levels automatically.
         
 
 ### **Recursive Fuzzing Visualization**
@@ -98,9 +97,7 @@ To automate the exploration of directories and their subdirectories, recursive f
 ### **Command:**
 
 ```powershell
-shellCopy code
 ffuf -w wordlist.txt:FUZZ -u <http://192.168.1.100:8080/FUZZ> -recursion -recursion-depth 1 -e .php -v
-
 ```
 
 ### **Fuzzing Process Visualization:**
@@ -159,7 +156,6 @@ bashCopy code
 └── /images/ [200 OK]
     ├── upload.php [Fuzzed and Found]
     └── gallery.php [Fuzzed and Found]
-
 ```
 
 * **First Layer (Root)**: `ffuf` starts with the root directory, appending entries from the wordlist to the base URL.

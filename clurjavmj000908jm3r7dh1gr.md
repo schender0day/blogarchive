@@ -11,7 +11,7 @@ tags: hacking, passwords, pentesting, bruteforceattack, hacking-tutorial
 
 ---
 
-### Basic HTTP Authentication Scheme
+### A. Basic HTTP Authentication Scheme
 
 * **Concept**: It’s a method for an HTTP server to request authentication from a client, using a username and password. The credentials are sent in headers, encoded with Base64.
     
@@ -60,12 +60,39 @@ tags: hacking, passwords, pentesting, bruteforceattack, hacking-tutorial
     * This command attempts to log in using a list of default credentials against a web server running on a non-standard port.
         
 
-### Post-Attack Actions
+## Visualize the Hydra Attack
 
-1. **Analyzing Results**: Review Hydra’s output for successful login attempts. Successful attempts need to be verified manually to confirm access.
-    
-2. **Verification**: Access the web service using the discovered credentials to confirm they work.
-    
+> **1\. Preparation Phase**
+
+> **Hydra Initialization**: Hydra starts up and reads the command-line arguments you've provided.
+
+> **Wordlist Loading**: Hydra loads the combined username:password pairs from the file located at `/opt/useful/SecLists/Passwords/Default-Credentials/ftp-betterdefaultpasslist.txt`. Each line in this file likely contains a username and password separated by a colon (`:`), representing a set of credentials to test.
+
+> **2\. Configuration Phase**
+
+> **Target Specification**: You've specified the target's IP address as `94.237.54.170`, directing Hydra where to send the authentication attempts.
+
+> **Port Specification**: With `s 56220`, you're instructing Hydra to direct its attempts to port `56220` on the target machine, suggesting that the web service you're targeting is hosted on a non-standard port.
+
+> **Service Module Selection**: By including `http-get` in the command, you're telling Hydra to use the HTTP GET method for the attack. This means Hydra will craft HTTP GET requests for each username:password pair, attempting to authenticate against a resource on the server.
+
+> **3\. Execution Phase**
+
+> **Request Sending**: For each username:password pair in the wordlist, Hydra sends an HTTP GET request to [`http://94.237.54.170:56220`](http://94.237.54.170:56220). The authentication credentials are encoded (typically in Base64 when Basic Authentication is used) and included in the HTTP `Authorization` header of each request.
+
+> **Response Analysis**: The server responds to each request. If the credentials are incorrect, the server typically responds with a `401 Unauthorized` status code. For correct credentials, the server's response varies but will not include a `401` status.
+
+> **4\. Result Handling**
+
+> **Success Detection**: Hydra checks the response from the server for each request. When it detects a response that implies successful authentication (not a `401`), it considers the credentials that generated this response to be valid.
+
+> **Logging**: Upon finding a valid username:password pair, Hydra logs the successful credentials. Depending on the command-line flags, it might stop the attack or continue testing other pairs.
+
+> **5\. Post-Execution**
+
+> **Report**: After completing the process or finding a valid credential set, Hydra provides a summary of the attack outcomes, including any successfully authenticated credentials.
+
+> **Cleanup**: Hydra concludes its operation, freeing up any resources it used during the attack process.
 
 ### **Checkpoint Exercise**
 

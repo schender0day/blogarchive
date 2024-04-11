@@ -12,13 +12,13 @@ tags: mysql, sql, hacking, pentesting, sqlinjection, mysql-tutorial
 
 # **What is MySQL?**
 
-MySQL is a popular open-source **relational database management system (RDBMS)** that uses **Structured Query Language (SQL)**.
+MySQL is a popular open-source relational database management system (RDBMS) that uses Structured Query Language (SQL).
 
 ## **SQL Injection**
 
 SQL Injection is a code injection technique that exploits vulnerabilities in the database layer of an application. It involves inserting malicious SQL statements into an entry field for execution.
 
-### **Practical Application of MySQL**
+## **Practical Application of MySQL**
 
 * Retrieve, update, and delete data
     
@@ -27,294 +27,289 @@ SQL Injection is a code injection technique that exploits vulnerabilities in the
 * Manage users and permissions
     
 
-#### Example: Connecting to MySQL Database
+### **Example: Connecting to MySQL Database**
 
-```powershell
-mysql -u root -p
-```
+`mysql -u root -p`
 
 Enter your password to proceed.
 
-# **Command Line Interaction**
+## **Command Line Interaction**
 
-## **The**`mysql` Utility
+### **The** `mysql` Utility
 
 The `mysql` utility is a command-line tool for interacting with MySQL/MariaDB databases.
 
-### **Authentication**
+### Authentication
 
-* Use `-u` for the username and `-p` for the password
-    
-    * Note: Passing the password directly in the command line is discouraged due to security concerns
-        
+Use `-u` for the username and `-p` for the password
 
-### **Connecting to a Database**
+*Note: Passing the password directly in the command line is discouraged due to security concerns*
+
+### Connecting to a Database
 
 To connect to a specific database:
 
-```powershell
-mysql -u username -p -h host_address -P port
-```
+`mysql -u username -p -h host_address -P port`
 
-#### Example: Logging In
+### Example: Logging In
 
-```powershell
-mysql -u root -p
-```
+`mysql -u root -p`
 
 For remote connection:
 
-```powershell
-mysql -u root -h your_host -P 3306 -p
-```
+`mysql -u root -h your_host -P 3306 -p`
 
-# **Creating and Managing Databases and Tables**
+## **Creating and Managing Databases and Tables**
 
-## **Creating a Database**
+### **Creating a Database**
 
 1. Log into the MySQL terminal
     
-2. Execute `CREATE DATABASE users;` to create a new database named `users`
+2. Execute `CREATE DATABASE users;` to create a new database named `users`
     
 
-```powershell
+```sql
 CREATE DATABASE users;
+
 ```
 
-## **Defining Tables**
+### **Defining Tables**
 
 Tables store data in rows and columns. Each column has a specific data type, like `INT` for integers or `VARCHAR` for variable-length strings.
 
-1. Select a database with `USE users;`
+1. Select a database with `USE users;`
     
-2. Create a table with `CREATE TABLE`
+2. Create a table with `CREATE TABLE`
     
 
-```powershell
+```sql
 CREATE TABLE logins (
     id INT,
     username VARCHAR(100),
-    password VARCHAR(100), 
+    password VARCHAR(100),
     date_of_joining DATETIME
 );
+
 ```
 
-# **SQL Statements**
+## **SQL Statements**
 
 Let's dive deep into SQL Statements `INSERT`, `SELECT`, `DROP`, `ALTER`, and `UPDATE`.
 
-## **INSERT Statement**
+### `INSERT` Statement
 
-### **Objective**
+### Objective
 
 Learn how to use the `INSERT` statement to add new records to a database table.
 
-### **Explanation and Steps**
+### Explanation and Steps
 
-Syntax:
+**Syntax:**
 
-```powershell
+```sql
 INSERT INTO table_name VALUES (column1_value, column2_value, column3_value, ...);
+
 ```
 
-Selective Insertion: You can specify columns to insert values selectively, useful for skipping columns with default values.
+**Selective Insertion:** You can specify columns to insert values selectively, useful for skipping columns with default values.
 
-```powershell
+```sql
 INSERT INTO table_name(column2, column3, ...) VALUES (column2_value, column3_value, ...);
+
 ```
 
-### **Step-by-Step Application**
+### Step-by-Step Application
 
-1. Basic Insertion: Insert values into all columns by specifying them in order. Example: `INSERT INTO logins VALUES(1, 'admin', 'p@ssw0rd', '2020-07-02');`
+1. **Basic Insertion:** Insert values into all columns by specifying them in order. Example: `INSERT INTO logins VALUES(1, 'admin', 'p@ssw0rd', '2020-07-02');`
     
-2. Selective Insertion: Specify column names to insert values into specific columns, skipping those with default or auto-increment values. Example: `INSERT INTO logins(username, password) VALUES('administrator', 'adm1n_p@ss');`
+2. **Selective Insertion:** Specify column names to insert values into specific columns, skipping those with default or auto-increment values. Example: `INSERT INTO logins(username, password) VALUES('administrator', 'adm1n_p@ss');`
     
-3. Insert Multiple Records: Insert multiple records in one statement by separating each record with a comma. Example: `INSERT INTO logins(username, password) VALUES ('john', 'john123!'), ('tom', 'tom123!');`
-    
-
-### **Common Errors and Best Practices**
-
-* Not Null Constraint: Skipping columns with `NOT NULL` constraint without providing a default value results in an error.
-    
-* Security Best Practice: Never insert passwords in cleartext. Use hashing/encryption.
+3. **Insert Multiple Records:** Insert multiple records in one statement by separating each record with a comma. Example: `INSERT INTO logins(username, password) VALUES ('john', 'john123!'), ('tom', 'tom123!');`
     
 
-## **SELECT Statement**
+### Common Errors and Best Practices
 
-### **Objective**
+* **Not Null Constraint:** Skipping columns with `NOT NULL` constraint without providing a default value results in an error.
+    
+* **Security Best Practice:** Never insert passwords in cleartext. Use hashing/encryption.
+    
+
+### `SELECT` Statement
+
+### Objective
 
 Retrieve data from tables using the `SELECT` statement.
 
-### **Explanation and Steps**
+### Explanation and Steps
 
-* Basic Syntax: `SELECT * FROM table_name;` retrieves all columns.
+**Basic Syntax:** `SELECT * FROM table_name;` retrieves all columns.
+
+**Selective Retrieval:** `SELECT column1, column2 FROM table_name;` fetches specified columns only.
+
+### Application Examples
+
+1. **Retrieve All Records:** `SELECT * FROM logins;` shows all columns and records.
     
-* Selective Retrieval: `SELECT column1, column2 FROM table_name;` fetches specified columns only.
-    
-
-### **Application Examples**
-
-1. Retrieve All Records: `SELECT * FROM logins;` shows all columns and records.
-    
-2. Selective Columns: `SELECT username,password FROM logins;` displays only usernames and passwords.
-    
-
-### **Tips and Tricks**
-
-* Using Wildcards: The asterisk `*` is a wildcard that selects all columns. Be specific in column selection for efficiency.
+2. **Selective Columns:** `SELECT username,password FROM logins;` displays only usernames and passwords.
     
 
-## **DROP Statement**
+### Tips and Tricks
 
-### **Objective**
+* **Using Wildcards:** The asterisk \`\` is a wildcard that selects all columns. Be specific in column selection for efficiency.
+    
+
+### `DROP` Statement
+
+### Objective
 
 Understand how to remove tables or databases using the `DROP` statement.
 
-### **Explanation and Steps**
+### Explanation and Steps
 
-Syntax: `DROP TABLE table_name;`
+**Syntax:** `DROP TABLE table_name;`
 
-Usage: Removes a table entirely without confirmation.
+**Usage:** Removes a table entirely without confirmation.
 
-### **Example**
+### Example
 
 To remove the `logins` table: `DROP TABLE logins;`
 
-### **Warnings and Best Practices**
+### Warnings and Best Practices
 
-Irreversible Action: `DROP` permanently deletes the table. Use with caution.
+**Irreversible Action:** `DROP` permanently deletes the table. Use with caution.
 
-## **ALTER Statement**
+### `ALTER` Statement
 
-### **Objective**
+### Objective
 
 Modify table structures using the `ALTER` statement.
 
-### **Key Operations**
+### Key Operations
 
-* Add Column: `ALTER TABLE table_name ADD column_name column_type;`
+* **Add Column:** `ALTER TABLE table_name ADD column_name column_type;`
     
-* Rename Column: `ALTER TABLE table_name RENAME COLUMN old_name TO new_name;`
+* **Rename Column:** `ALTER TABLE table_name RENAME COLUMN old_name TO new_name;`
     
-* Modify Column Type: `ALTER TABLE table_name MODIFY column_name new_type;`
+* **Modify Column Type:** `ALTER TABLE table_name MODIFY column_name new_type;`
     
-* Drop Column: `ALTER TABLE table_name DROP column_name;`
-    
-
-### **Examples**
-
-* Add a new column: `ALTER TABLE logins ADD newColumn INT;`
-    
-* Rename a column: `ALTER TABLE logins RENAME COLUMN newColumn TO oldColumn;`
-    
-* Modify column type: `ALTER TABLE logins MODIFY oldColumn DATE;`
-    
-* Drop a column: `ALTER TABLE logins DROP oldColumn;`
+* **Drop Column:** `ALTER TABLE table_name DROP column_name;`
     
 
-### **Tips**
+### Examples
 
-Privileges: Ensure you have the necessary permissions to alter tables.
+1. Add a new column: `ALTER TABLE logins ADD newColumn INT;`
+    
+2. Rename a column: `ALTER TABLE logins RENAME COLUMN newColumn TO oldColumn;`
+    
+3. Modify column type: `ALTER TABLE logins MODIFY oldColumn DATE;`
+    
+4. Drop a column: `ALTER TABLE logins DROP oldColumn;`
+    
 
-## **UPDATE Statement**
+### Tips
 
-### **Objective**
+* **Privileges:** Ensure you have the necessary permissions to alter tables.
+    
+
+### `UPDATE` Statement
+
+### Objective
 
 Update existing records in a table based on specified conditions.
 
-### **Explanation and Steps**
+### Explanation and Steps
 
-Syntax: `UPDATE table_name SET column1=newvalue1, column2=newvalue2, ... WHERE condition;`
+**Syntax:** `UPDATE table_name SET column1=newvalue1, column2=newvalue2, ... WHERE condition;`
 
-Application: Change record values that meet the condition.
+**Application:** Change record values that meet the condition.
 
-### **Example**
+### Example
 
 To change passwords for records with `id` greater than 1: `UPDATE logins SET password = 'change_password' WHERE id > 1;`
 
-### **Common Pitfalls and Best Practices**
+### Common Pitfalls and Best Practices
 
-* Conditional Updates: Always use a `WHERE` clause to avoid unintended mass updates.
+* **Conditional Updates:** Always use a `WHERE` clause to avoid unintended mass updates.
     
-* Security Consideration: Like with `INSERT`, ensure password values are hashed/encrypted.
-    
-
-# **Best Practices and Tips**
-
-* SQL Statements: While not case-sensitive, writing SQL keywords in uppercase (e.g., `SELECT`, `CREATE TABLE`) and database entities in lowercase is recommended for readability.
-    
-* Security Practices: Always be wary of SQL injection vulnerabilities. Validate and sanitize user inputs.
+* **Security Consideration:** Like with `INSERT`, ensure password values are hashed/encrypted.
     
 
-## What is the difference between Alter and Update?
+## **Best Practices and Tips**
 
-### **ALTER Statement**
+* **SQL Statements:** While not case-sensitive, writing SQL keywords in uppercase (e.g., `SELECT`, `CREATE TABLE`) and database entities in lowercase is recommended for readability.
+    
+* **Security Practices:** Always be wary of SQL injection vulnerabilities. Validate and sanitize user inputs.
+    
 
-* **Purpose**: Used to modify the structure of an existing table or database objects. This includes operations like adding, deleting, or modifying columns in a table, changing data types of columns, renaming tables, and more.
-    
-* **Operation Level**: The `ALTER` statement operates at the schema or structure level of the database. It changes how the table or its elements are defined but does not directly modify the data within the rows.
-    
-* **Common Uses**:
-    
-    * Adding a new column to a table: `ALTER TABLE table_name ADD column_name datatype;`
-        
-    * Removing a column from a table: `ALTER TABLE table_name DROP COLUMN column_name;`
-        
-    * Changing the data type of a column: `ALTER TABLE table_name MODIFY COLUMN column_name new_datatype;`
-        
-    * Renaming a table: `ALTER TABLE old_table_name RENAME TO new_table_name;`
-        
+## **What is the difference between** `ALTER` and `UPDATE`?
 
-### **UPDATE Statement**
+### `ALTER` Statement
 
-* **Purpose**: Used to modify existing records in a table. It updates the values of specified columns in rows that meet the condition defined in the `WHERE` clause.
+**Purpose:** Used to modify the structure of an existing table or database objects. This includes operations like adding, deleting, or modifying columns in a table, changing data types of columns, renaming tables, and more.
+
+**Operation Level:** The `ALTER` statement operates at the schema or structure level of the database. It changes how the table or its elements are defined but does not directly modify the data within the rows.
+
+**Common Uses:**
+
+* Adding a new column to a table: `ALTER TABLE table_name ADD column_name datatype;`
     
-* **Operation Level**: The `UPDATE` statement operates at the data level. It directly changes the contents of one or more rows in a table but does not alter the table's structure.
+* Removing a column from a table: `ALTER TABLE table_name DROP COLUMN column_name;`
     
-* **Common Uses**:
+* Changing the data type of a column: `ALTER TABLE table_name MODIFY COLUMN column_name new_datatype;`
     
-    * Updating the value of a column in specific rows: `UPDATE table_name SET column1 = value1 WHERE condition;`
-        
-    * Updating multiple columns at once: `UPDATE table_name SET column1 = value1, column2 = value2 WHERE condition;`
-        
+* Renaming a table: `ALTER TABLE old_table_name RENAME TO new_table_name;`
+    
+
+### `UPDATE` Statement
+
+**Purpose:** Used to modify existing records in a table. It updates the values of specified columns in rows that meet the condition defined in the `WHERE` clause.
+
+**Operation Level:** The `UPDATE` statement operates at the data level. It directly changes the contents of one or more rows in a table but does not alter the table's structure.
+
+**Common Uses:**
+
+* Updating the value of a column in specific rows: `UPDATE table_name SET column1 = value1 WHERE condition;`
+    
+* Updating multiple columns at once: `UPDATE table_name SET column1 = value1, column2 = value2 WHERE condition;`
+    
 
 ### **Key Differences**
 
-* **Scope**: `ALTER` changes the table design or structure, while `UPDATE` modifies the data within the table.
+* **Scope:** `ALTER` changes the table design or structure, while `UPDATE` modifies the data within the table.
     
-* **Operation**: `ALTER` is used for modifying the schema of the database, such as adding or deleting columns. `UPDATE` is used for changing the data stored in the table rows.
+* **Operation:** `ALTER` is used for modifying the schema of the database, such as adding or deleting columns. `UPDATE` is used for changing the data stored in the table rows.
     
-* **Impact**: Changes made by `ALTER` can affect the overall layout and functionality of the database and its relations. `UPDATE` affects the actual data stored, which can impact the results of queries but not the structure of the database.
+* **Impact:** Changes made by `ALTER` can affect the overall layout and functionality of the database and its relations. `UPDATE` affects the actual data stored, which can impact the results of queries but not the structure of the database.
     
 
 In summary, `ALTER` is used for structural changes to the database, whereas `UPDATE` is used for modifying the data within the tables. Each serves a distinct purpose in database management and manipulation in MySQL.
 
-## **Checkpoint**
+### **Checkpoint**
 
-Exercise: Try creating a new table named `test_table` with columns `test_id` (INT) and `test_name` (VARCHAR(50)). Use the `CREATE TABLE` statement.
+**Exercise:** Try creating a new table named `test_table` with columns `test_id` (INT) and `test_name` (VARCHAR(50)). Use the `CREATE TABLE` statement.
 
-Feedback: Verify the table creation with `SHOW TABLES;` and describe its structure using `DESCRIBE test_table;`.
+**Feedback:** Verify the table creation with `SHOW TABLES;` and describe its structure using `DESCRIBE test_table;`.
 
-# **Query Results**
+## **Query Results**
 
 In this section, we will learn how to control the results output of any query.
 
-## **Sorting Results**
+### **Sorting Results**
 
-### **Explanation**
+### Explanation
 
 Sorting results allows you to order the output of a query based on one or more columns in ascending or descending order.
 
-### **Steps**
+### Steps
 
-1. Use the `ORDER BY` clause followed by the column name to sort the results. Example: `SELECT * FROM logins ORDER BY password;`
+1. Use the `ORDER BY` clause followed by the column name to sort the results. Example: `SELECT * FROM logins ORDER BY password;`
     
-2. By default, the sort is done in ascending order. To sort in descending order, use `DESC` after the column name. Example: `SELECT * FROM logins ORDER BY password DESC;`
+2. By default, the sort is done in ascending order. To sort in descending order, use `DESC` after the column name. Example: `SELECT * FROM logins ORDER BY password DESC;`
     
-3. To sort by multiple columns, separate the column names with commas. The secondary sort is applied for duplicate values in the first column. Example: `SELECT * FROM logins ORDER BY password DESC, id ASC;`
+3. To sort by multiple columns, separate the column names with commas. The secondary sort is applied for duplicate values in the first column. Example: `SELECT * FROM logins ORDER BY password DESC, id ASC;`
     
 
-### **Output Examples**
+### Output Examples
 
 ```powershell
 mysql> SELECT * FROM logins ORDER BY password;
@@ -326,9 +321,7 @@ mysql> SELECT * FROM logins ORDER BY password;
 |  1 | admin         | p@ssw0rd   | 2020-07-02 00:00:00 |
 |  4 | tom           | tom123!    | 2020-07-02 11:47:16 |
 +----+---------------+------------+---------------------+
-```
 
-```powershell
 mysql> SELECT * FROM logins ORDER BY password DESC;
 +----+---------------+------------+---------------------+
 | id | username      | password   | date_of_joining     |
@@ -338,9 +331,7 @@ mysql> SELECT * FROM logins ORDER BY password DESC;
 |  3 | john          | john123!   | 2020-07-02 11:47:16 |
 |  2 | administrator | adm1n_p@ss | 2020-07-02 11:30:50 |
 +----+---------------+------------+---------------------+
-```
 
-```powershell
 mysql> SELECT * FROM logins ORDER BY password DESC, id ASC;
 +----+---------------+-----------------+---------------------+
 | id | username      | password        | date_of_joining     |
@@ -350,22 +341,23 @@ mysql> SELECT * FROM logins ORDER BY password DESC, id ASC;
 |  3 | john          | change_password | 2020-07-02 11:47:16 |
 |  4 | tom           | change_password | 2020-07-02 11:50:20 |
 +----+---------------+-----------------+---------------------+
+
 ```
 
-## **LIMIT Results**
+### `LIMIT` Results
 
-### **Explanation**
+### Explanation
 
 The `LIMIT` clause allows you to restrict the number of records returned by a query. This is useful when dealing with large result sets.
 
-### **Steps**
+### Steps
 
-1. Use the `LIMIT` keyword followed by the number of records you want to retrieve. Example: `SELECT * FROM logins LIMIT 2;`
+1. Use the `LIMIT` keyword followed by the number of records you want to retrieve. Example: `SELECT * FROM logins LIMIT 2;`
     
-2. To specify an offset (starting point) for the records, include the offset before the limit count, separated by a comma. Example: `SELECT * FROM logins LIMIT 1, 2;` Note: The offset starts from 0, so `LIMIT 1, 2` will start from the 2nd record and return 2 records.
+2. To specify an offset (starting point) for the records, include the offset before the limit count, separated by a comma. Example: `SELECT * FROM logins LIMIT 1, 2;` Note: The offset starts from 0, so `LIMIT 1, 2` will start from the 2nd record and return 2 records.
     
 
-### **Output Examples**
+### Output Examples
 
 ```powershell
 mysql> SELECT * FROM logins LIMIT 2;
@@ -375,9 +367,7 @@ mysql> SELECT * FROM logins LIMIT 2;
 |  1 | admin         | p@ssw0rd   | 2020-07-02 00:00:00 |
 |  2 | administrator | adm1n_p@ss | 2020-07-02 11:30:50 |
 +----+---------------+------------+---------------------+
-```
 
-```powershell
 mysql> SELECT * FROM logins LIMIT 1, 2;
 +----+---------------+------------+---------------------+
 | id | username      | password   | date_of_joining     |
@@ -385,20 +375,20 @@ mysql> SELECT * FROM logins LIMIT 1, 2;
 |  2 | administrator | adm1n_p@ss | 2020-07-02 11:30:50 |
 |  3 | john          | john123!   | 2020-07-02 11:47:16 |
 +----+---------------+------------+---------------------+
+
 ```
 
-## **WHERE Clause**
+### `WHERE` Clause
 
-### **Explanation**
+### Explanation
 
 The `WHERE` clause is used to filter results based on specified conditions. It allows you to retrieve specific records that meet the given criteria.
 
-### **Steps**
+### Steps
 
-1. Use the `WHERE` keyword followed by the condition to filter the results. Example: `SELECT * FROM logins WHERE id > 1;`
-    
+Use the `WHERE` keyword followed by the condition to filter the results. Example: `SELECT * FROM logins WHERE id > 1;`
 
-### **Output Example**
+### Output Example
 
 ```powershell
 mysql> SELECT * FROM logins WHERE id > 1;
@@ -409,38 +399,40 @@ mysql> SELECT * FROM logins WHERE id > 1;
 |  3 | john          | john123!   | 2020-07-02 11:47:16 |
 |  4 | tom           | tom123!    | 2020-07-02 11:47:16 |
 +----+---------------+------------+---------------------+
+
 ```
 
 In the example above, only records where the value of `id` is greater than 1 are returned.
 
-## **Checkpoint**
+### **Checkpoint**
 
-1. Write a query to sort the `logins` table by `date_of_joining` in descending order.
+1. Write a query to sort the `logins` table by `date_of_joining` in descending order.
     
-2. Retrieve the first 3 records from the `logins` table.
+2. Retrieve the first 3 records from the `logins` table.
     
-3. Find all records in the `logins` table where the `username` starts with the letter 'a'.
+3. Find all records in the `logins` table where the `username` starts with the letter 'a'.
     
 
-# **SQL Operators**
+## **SQL Operators**
 
-SQL supports logical operators to combine multiple conditions in a query. The most common logical operators are AND, OR, and NOT.
+SQL supports logical operators to combine multiple conditions in a query. The most common logical operators are `AND`, `OR`, and `NOT`.
 
-## **AND Operator**
+### `AND` Operator
 
-### **Explanation**
+### Explanation
 
-The AND operator takes two conditions and returns true if both conditions evaluate to true.
+The `AND` operator takes two conditions and returns true if both conditions evaluate to true.
 
-### **Syntax**
+### Syntax
 
-```powershell
+```sql
 condition1 AND condition2
+
 ```
 
-### **Examples**
+### Examples
 
-```powershell
+```sql
 mysql> SELECT 1 = 1 AND 'test' = 'test';
 +---------------------------+
 | 1 = 1 AND 'test' = 'test' |
@@ -454,25 +446,27 @@ mysql> SELECT 1 = 1 AND 'test' = 'abc';
 +--------------------------+
 |                        0 |
 +--------------------------+
+
 ```
 
 In MySQL, any non-zero value is considered true (usually represented as 1), and 0 is considered false.
 
-## **OR Operator**
+### `OR` Operator
 
-### **Explanation**
+### Explanation
 
-The OR operator takes two conditions and returns true if at least one of the conditions evaluates to true.
+The `OR` operator takes two conditions and returns true if at least one of the conditions evaluates to true.
 
-### **Syntax**
+### Syntax
 
-```powershell
+```sql
 condition1 OR condition2
+
 ```
 
-### **Examples**
+### Examples
 
-```powershell
+```sql
 mysql> SELECT 1 = 1 OR 'test' = 'abc';
 +-------------------------+
 | 1 = 1 OR 'test' = 'abc' |
@@ -482,27 +476,26 @@ mysql> SELECT 1 = 1 OR 'test' = 'abc';
 
 mysql> SELECT 1 = 2 OR 'test' = 'abc';
 +-------------------------+
-| 1 = 2 OR 'test' = 'abc' |
-+-------------------------+
-|                       0 |
-+-------------------------+
+| 1 = 2 OR 'test' = '
+
 ```
 
-## **NOT Operator**
+### `NOT` Operator
 
-### **Explanation**
+### Explanation
 
-The NOT operator toggles a boolean value, converting true to false and vice versa.
+The `NOT` operator toggles a boolean value, converting true to false and vice versa.
 
-### **Syntax**
+### Syntax
 
-```powershell
- NOT condition
+```sql
+NOT condition
+
 ```
 
-### **Examples**
+### Examples
 
-```powershell
+```sql
 mysql> SELECT NOT 1 = 1;
 +-----------+
 | NOT 1 = 1 |
@@ -516,24 +509,25 @@ mysql> SELECT NOT 1 = 2;
 +-----------+
 |         1 |
 +-----------+
+
 ```
 
-## **Symbol Operators**
+### **Symbol Operators**
 
-### **Explanation**
+### Explanation
 
-The AND, OR, and NOT operators can also be represented using symbols:
+The `AND`, `OR`, and `NOT` operators can also be represented using symbols:
 
-* AND: &&
+* `AND`: `&&`
     
-* OR: ||
+* `OR`: `||`
     
-* NOT: !
+* `NOT`: `!`
     
 
-### **Examples**
+### Examples
 
-```powershell
+```sql
 mysql> SELECT 1 = 1 && 'test' = 'abc';
 +-------------------------+
 | 1 = 1 && 'test' = 'abc' |
@@ -554,63 +548,71 @@ mysql> SELECT 1 != 1;
 +--------+
 |      0 |
 +--------+
+
 ```
 
-## **Using Operators in Queries**
+### **Using Operators in Queries**
 
-### **Examples**
+### Examples
 
-1. List all records where the username is NOT 'john':
-    
-    ```powershell
-    SELECT * FROM logins WHERE username != 'john';
-    ```
-    
-2. Select users who have an id greater than 1 AND a username NOT equal to 'john':
-    
-    ```powershell
-    SELECT * FROM logins WHERE username != 'john' AND id > 1;
-    ```
+1. List all records where the `username` is NOT 'john':
     
 
-## **Operator Precedence**
+```sql
+SELECT * FROM logins WHERE username != 'john';
 
-### **Explanation**
+```
+
+1. Select users who have an `id` greater than 1 AND a `username` NOT equal to 'john':
+    
+
+```sql
+SELECT * FROM logins WHERE username != 'john' AND id > 1;
+
+```
+
+### **Operator Precedence**
+
+### Explanation
 
 SQL supports various operations such as arithmetic, comparison, and logical operations. The order of evaluation is determined by operator precedence.
 
-### **Precedence Order (from highest to lowest)**
+### Precedence Order (from highest to lowest)
 
-1. Division (/), Multiplication (\*), and Modulus (%)
+1. Division (`/`), Multiplication (\`\`), and Modulus (`%`)
     
-2. Addition (+) and Subtraction (-)
+2. Addition (`+`) and Subtraction (\`\`)
     
-3. Comparison (=, &gt;, &lt;, &lt;=, &gt;=, !=, LIKE)
+3. Comparison (`=`, `>`, `<`, `<=`, `>=`, `!=`, `LIKE`)
     
-4. NOT (!)
+4. `NOT` (`!`)
     
-5. AND (&&)
+5. `AND` (`&&`)
     
-6. OR (||)
+6. `OR` (`||`)
     
 
-### **Example**
+### Example
 
-```powershell
+```sql
 SELECT * FROM logins WHERE username != 'tom' AND id > 3 - 2;
+
 ```
 
 Evaluation steps:
 
-1. Subtraction: 3 - 2 = 1
+1. Subtraction: `3 - 2 = 1`
     
-2. Comparison: username != 'tom' AND id &gt; 1
+2. Comparison: `username != 'tom'` AND `id > 1`
     
-3. AND: Return records where both conditions are true
+3. `AND`: Return records where both conditions are true
     
 
-## **Checkpoint**
+### **Checkpoint**
 
-1. Write a query to find all records where the username is 'admin' OR 'administrator'.
+1. Write a query to find all records where the `username` is 'admin' OR 'administrator'.
     
-2. Retrieve records where the id is less than 5 AND the username is NOT 'john'.
+2. Retrieve records where the `id` is less than 5 AND the `username` is NOT 'john'.
+    
+
+That concludes the MySQL guide covering SQL statements, query results, operators, and best practices.

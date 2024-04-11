@@ -6,7 +6,7 @@ cuid: cluvgvnkn000q08ky4c4cdmoe
 slug: sqli-series-intro-to-mysql-and-sql-injection-01
 cover: https://cdn.hashnode.com/res/hashnode/image/upload/v1712853698091/72330b65-ef8e-4ad5-bb1d-4540e749253c.png
 ogImage: https://cdn.hashnode.com/res/hashnode/image/upload/v1712853708207/bc60e23b-3206-4a1d-a465-e533e584ff1e.png
-tags: mysql, sql, hacking, pentesting, sqlinjection
+tags: mysql, sql, hacking, pentesting, sqlinjection, mysql-tutorial
 
 ---
 
@@ -295,8 +295,322 @@ Exercise: Try creating a new table named `test_table` with columns `test_id` (IN
 
 Feedback: Verify the table creation with `SHOW TABLES;` and describe its structure using `DESCRIBE test_table;`.
 
-# **Further Exploration**
+# **Query Results**
 
-* Read More: Explore the official MySQL documentation for advanced features like stored procedures, triggers, and indexing.
+In this section, we will learn how to control the results output of any query.
+
+## **Sorting Results**
+
+### **Explanation**
+
+Sorting results allows you to order the output of a query based on one or more columns in ascending or descending order.
+
+### **Steps**
+
+1. Use the `ORDER BY` clause followed by the column name to sort the results. Example: `SELECT * FROM logins ORDER BY password;`
     
-* Practice: Use online platforms like Hack The Box or TryHackMe for hands-on SQL injection challenges.
+2. By default, the sort is done in ascending order. To sort in descending order, use `DESC` after the column name. Example: `SELECT * FROM logins ORDER BY password DESC;`
+    
+3. To sort by multiple columns, separate the column names with commas. The secondary sort is applied for duplicate values in the first column. Example: `SELECT * FROM logins ORDER BY password DESC, id ASC;`
+    
+
+### **Output Examples**
+
+```powershell
+mysql> SELECT * FROM logins ORDER BY password;
++----+---------------+------------+---------------------+
+| id | username      | password   | date_of_joining     |
++----+---------------+------------+---------------------+
+|  2 | administrator | adm1n_p@ss | 2020-07-02 11:30:50 |
+|  3 | john          | john123!   | 2020-07-02 11:47:16 |
+|  1 | admin         | p@ssw0rd   | 2020-07-02 00:00:00 |
+|  4 | tom           | tom123!    | 2020-07-02 11:47:16 |
++----+---------------+------------+---------------------+
+```
+
+```powershell
+mysql> SELECT * FROM logins ORDER BY password DESC;
++----+---------------+------------+---------------------+
+| id | username      | password   | date_of_joining     |
++----+---------------+------------+---------------------+
+|  4 | tom           | tom123!    | 2020-07-02 11:47:16 |
+|  1 | admin         | p@ssw0rd   | 2020-07-02 00:00:00 |
+|  3 | john          | john123!   | 2020-07-02 11:47:16 |
+|  2 | administrator | adm1n_p@ss | 2020-07-02 11:30:50 |
++----+---------------+------------+---------------------+
+```
+
+```powershell
+mysql> SELECT * FROM logins ORDER BY password DESC, id ASC;
++----+---------------+-----------------+---------------------+
+| id | username      | password        | date_of_joining     |
++----+---------------+-----------------+---------------------+
+|  1 | admin         | p@ssw0rd        | 2020-07-02 00:00:00 |
+|  2 | administrator | change_password | 2020-07-02 11:30:50 |
+|  3 | john          | change_password | 2020-07-02 11:47:16 |
+|  4 | tom           | change_password | 2020-07-02 11:50:20 |
++----+---------------+-----------------+---------------------+
+```
+
+## **LIMIT Results**
+
+### **Explanation**
+
+The `LIMIT` clause allows you to restrict the number of records returned by a query. This is useful when dealing with large result sets.
+
+### **Steps**
+
+1. Use the `LIMIT` keyword followed by the number of records you want to retrieve. Example: `SELECT * FROM logins LIMIT 2;`
+    
+2. To specify an offset (starting point) for the records, include the offset before the limit count, separated by a comma. Example: `SELECT * FROM logins LIMIT 1, 2;` Note: The offset starts from 0, so `LIMIT 1, 2` will start from the 2nd record and return 2 records.
+    
+
+### **Output Examples**
+
+```powershell
+mysql> SELECT * FROM logins LIMIT 2;
++----+---------------+------------+---------------------+
+| id | username      | password   | date_of_joining     |
++----+---------------+------------+---------------------+
+|  1 | admin         | p@ssw0rd   | 2020-07-02 00:00:00 |
+|  2 | administrator | adm1n_p@ss | 2020-07-02 11:30:50 |
++----+---------------+------------+---------------------+
+```
+
+```powershell
+mysql> SELECT * FROM logins LIMIT 1, 2;
++----+---------------+------------+---------------------+
+| id | username      | password   | date_of_joining     |
++----+---------------+------------+---------------------+
+|  2 | administrator | adm1n_p@ss | 2020-07-02 11:30:50 |
+|  3 | john          | john123!   | 2020-07-02 11:47:16 |
++----+---------------+------------+---------------------+
+```
+
+## **WHERE Clause**
+
+### **Explanation**
+
+The `WHERE` clause is used to filter results based on specified conditions. It allows you to retrieve specific records that meet the given criteria.
+
+### **Steps**
+
+1. Use the `WHERE` keyword followed by the condition to filter the results. Example: `SELECT * FROM logins WHERE id > 1;`
+    
+
+### **Output Example**
+
+```powershell
+mysql> SELECT * FROM logins WHERE id > 1;
++----+---------------+------------+---------------------+
+| id | username      | password   | date_of_joining     |
++----+---------------+------------+---------------------+
+|  2 | administrator | adm1n_p@ss | 2020-07-02 11:30:50 |
+|  3 | john          | john123!   | 2020-07-02 11:47:16 |
+|  4 | tom           | tom123!    | 2020-07-02 11:47:16 |
++----+---------------+------------+---------------------+
+```
+
+In the example above, only records where the value of `id` is greater than 1 are returned.
+
+## **Checkpoint**
+
+1. Write a query to sort the `logins` table by `date_of_joining` in descending order.
+    
+2. Retrieve the first 3 records from the `logins` table.
+    
+3. Find all records in the `logins` table where the `username` starts with the letter 'a'.
+    
+
+# **SQL Operators**
+
+SQL supports logical operators to combine multiple conditions in a query. The most common logical operators are AND, OR, and NOT.
+
+## **AND Operator**
+
+### **Explanation**
+
+The AND operator takes two conditions and returns true if both conditions evaluate to true.
+
+### **Syntax**
+
+```powershell
+condition1 AND condition2
+```
+
+### **Examples**
+
+```powershell
+mysql> SELECT 1 = 1 AND 'test' = 'test';
++---------------------------+
+| 1 = 1 AND 'test' = 'test' |
++---------------------------+
+|                         1 |
++---------------------------+
+
+mysql> SELECT 1 = 1 AND 'test' = 'abc';
++--------------------------+
+| 1 = 1 AND 'test' = 'abc' |
++--------------------------+
+|                        0 |
++--------------------------+
+```
+
+In MySQL, any non-zero value is considered true (usually represented as 1), and 0 is considered false.
+
+## **OR Operator**
+
+### **Explanation**
+
+The OR operator takes two conditions and returns true if at least one of the conditions evaluates to true.
+
+### **Syntax**
+
+```powershell
+condition1 OR condition2
+```
+
+### **Examples**
+
+```powershell
+mysql> SELECT 1 = 1 OR 'test' = 'abc';
++-------------------------+
+| 1 = 1 OR 'test' = 'abc' |
++-------------------------+
+|                       1 |
++-------------------------+
+
+mysql> SELECT 1 = 2 OR 'test' = 'abc';
++-------------------------+
+| 1 = 2 OR 'test' = 'abc' |
++-------------------------+
+|                       0 |
++-------------------------+
+```
+
+## **NOT Operator**
+
+### **Explanation**
+
+The NOT operator toggles a boolean value, converting true to false and vice versa.
+
+### **Syntax**
+
+```powershell
+ NOT condition
+```
+
+### **Examples**
+
+```powershell
+mysql> SELECT NOT 1 = 1;
++-----------+
+| NOT 1 = 1 |
++-----------+
+|         0 |
++-----------+
+
+mysql> SELECT NOT 1 = 2;
++-----------+
+| NOT 1 = 2 |
++-----------+
+|         1 |
++-----------+
+```
+
+## **Symbol Operators**
+
+### **Explanation**
+
+The AND, OR, and NOT operators can also be represented using symbols:
+
+* AND: &&
+    
+* OR: ||
+    
+* NOT: !
+    
+
+### **Examples**
+
+```powershell
+mysql> SELECT 1 = 1 && 'test' = 'abc';
++-------------------------+
+| 1 = 1 && 'test' = 'abc' |
++-------------------------+
+|                       0 |
++-------------------------+
+
+mysql> SELECT 1 = 1 || 'test' = 'abc';
++-------------------------+
+| 1 = 1 || 'test' = 'abc' |
++-------------------------+
+|                       1 |
++-------------------------+
+
+mysql> SELECT 1 != 1;
++--------+
+| 1 != 1 |
++--------+
+|      0 |
++--------+
+```
+
+## **Using Operators in Queries**
+
+### **Examples**
+
+1. List all records where the username is NOT 'john':
+    
+    ```powershell
+    SELECT * FROM logins WHERE username != 'john';
+    ```
+    
+2. Select users who have an id greater than 1 AND a username NOT equal to 'john':
+    
+    ```powershell
+    SELECT * FROM logins WHERE username != 'john' AND id > 1;
+    ```
+    
+
+## **Operator Precedence**
+
+### **Explanation**
+
+SQL supports various operations such as arithmetic, comparison, and logical operations. The order of evaluation is determined by operator precedence.
+
+### **Precedence Order (from highest to lowest)**
+
+1. Division (/), Multiplication (\*), and Modulus (%)
+    
+2. Addition (+) and Subtraction (-)
+    
+3. Comparison (=, &gt;, &lt;, &lt;=, &gt;=, !=, LIKE)
+    
+4. NOT (!)
+    
+5. AND (&&)
+    
+6. OR (||)
+    
+
+### **Example**
+
+```powershell
+SELECT * FROM logins WHERE username != 'tom' AND id > 3 - 2;
+```
+
+Evaluation steps:
+
+1. Subtraction: 3 - 2 = 1
+    
+2. Comparison: username != 'tom' AND id &gt; 1
+    
+3. AND: Return records where both conditions are true
+    
+
+## **Checkpoint**
+
+1. Write a query to find all records where the username is 'admin' OR 'administrator'.
+    
+2. Retrieve records where the id is less than 5 AND the username is NOT 'john'.

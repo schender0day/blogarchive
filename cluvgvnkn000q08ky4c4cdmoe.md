@@ -6,7 +6,7 @@ cuid: cluvgvnkn000q08ky4c4cdmoe
 slug: sqli-series-intro-to-mysql-and-sql-injection-01
 cover: https://cdn.hashnode.com/res/hashnode/image/upload/v1712853698091/72330b65-ef8e-4ad5-bb1d-4540e749253c.png
 ogImage: https://cdn.hashnode.com/res/hashnode/image/upload/v1712853708207/bc60e23b-3206-4a1d-a465-e533e584ff1e.png
-tags: mysql, hacking, pentesting, sqlinjection
+tags: mysql, sql, hacking, pentesting, sqlinjection
 
 ---
 
@@ -37,7 +37,7 @@ Enter your password to proceed.
 
 # **Command Line Interaction**
 
-## **The** `mysql` Utility
+## **The**`mysql` Utility
 
 The `mysql` utility is a command-line tool for interacting with MySQL/MariaDB databases.
 
@@ -245,6 +245,49 @@ To change passwords for records with `id` greater than 1: `UPDATE logins SET pas
     
 * Security Practices: Always be wary of SQL injection vulnerabilities. Validate and sanitize user inputs.
     
+
+## What is the difference between Alter and Update?
+
+### **ALTER Statement**
+
+* **Purpose**: Used to modify the structure of an existing table or database objects. This includes operations like adding, deleting, or modifying columns in a table, changing data types of columns, renaming tables, and more.
+    
+* **Operation Level**: The `ALTER` statement operates at the schema or structure level of the database. It changes how the table or its elements are defined but does not directly modify the data within the rows.
+    
+* **Common Uses**:
+    
+    * Adding a new column to a table: `ALTER TABLE table_name ADD column_name datatype;`
+        
+    * Removing a column from a table: `ALTER TABLE table_name DROP COLUMN column_name;`
+        
+    * Changing the data type of a column: `ALTER TABLE table_name MODIFY COLUMN column_name new_datatype;`
+        
+    * Renaming a table: `ALTER TABLE old_table_name RENAME TO new_table_name;`
+        
+
+### **UPDATE Statement**
+
+* **Purpose**: Used to modify existing records in a table. It updates the values of specified columns in rows that meet the condition defined in the `WHERE` clause.
+    
+* **Operation Level**: The `UPDATE` statement operates at the data level. It directly changes the contents of one or more rows in a table but does not alter the table's structure.
+    
+* **Common Uses**:
+    
+    * Updating the value of a column in specific rows: `UPDATE table_name SET column1 = value1 WHERE condition;`
+        
+    * Updating multiple columns at once: `UPDATE table_name SET column1 = value1, column2 = value2 WHERE condition;`
+        
+
+### **Key Differences**
+
+* **Scope**: `ALTER` changes the table design or structure, while `UPDATE` modifies the data within the table.
+    
+* **Operation**: `ALTER` is used for modifying the schema of the database, such as adding or deleting columns. `UPDATE` is used for changing the data stored in the table rows.
+    
+* **Impact**: Changes made by `ALTER` can affect the overall layout and functionality of the database and its relations. `UPDATE` affects the actual data stored, which can impact the results of queries but not the structure of the database.
+    
+
+In summary, `ALTER` is used for structural changes to the database, whereas `UPDATE` is used for modifying the data within the tables. Each serves a distinct purpose in database management and manipulation in MySQL.
 
 ## **Checkpoint**
 

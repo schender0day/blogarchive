@@ -26,7 +26,7 @@ tags: databases, pentesting, redteaming
     * Access to a vulnerable web application with SQL injection flaws
         
 
-![](https://cdn.hashnode.com/res/hashnode/image/upload/v1713724575408/2962ee9b-c8d7-455e-94c6-89f584d42394.png align="center")
+![](https://cdn.hashnode.com/res/hashnode/image/upload/v1713725318710/969ad8b4-6121-42f5-829f-dd60c5deda25.png align="center")
 
 ## **MySQL Fingerprinting**
 

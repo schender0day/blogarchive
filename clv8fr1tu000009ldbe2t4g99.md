@@ -1,5 +1,5 @@
 ---
-title: "Database Enumeration"
+title: "SQLi Series - Database Enumeration I  - 05"
 seoTitle: "Understanding Database Enumeration Techniques"
 seoDescription: "Learn how to perform database enumeration using SQL injections to identify DBMS types, databases, tables, and columns effectively"
 datePublished: Sat Apr 20 2024 18:31:24 GMT+0000 (Coordinated Universal Time)

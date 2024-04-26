@@ -84,7 +84,7 @@ To provide a detailed, step-by-step guide on the various SQL injection types sup
 
 ## Stacked Queries SQL Injection
 
-1. Example payload: `; DROP TABLE users`
+1. Example payload: `; DROP TABLE users.`
     
 2. Also known as "piggy-backing," this technique injects additional SQL statements after the vulnerable one.
     

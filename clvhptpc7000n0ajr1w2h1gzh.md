@@ -5,8 +5,8 @@ seoDescription: "Learn how to use SQLMap, an essential tool for detecting and ex
 datePublished: Sat Apr 27 2024 06:23:19 GMT+0000 (Coordinated Universal Time)
 cuid: clvhptpc7000n0ajr1w2h1gzh
 slug: sql-injection-fundamentals-sql-map-02
-cover: https://cdn.hashnode.com/res/hashnode/image/upload/v1714198974501/3f44d5a4-8e0c-4702-ba2f-7dcb4048b5d7.png
-ogImage: https://cdn.hashnode.com/res/hashnode/image/upload/v1714198982646/f6a1fc40-9f71-485a-9f16-824df07f60d5.png
+cover: https://cdn.hashnode.com/res/hashnode/image/upload/v1714199135069/6935bcd6-eff4-4b79-8ce9-dcecc812591d.png
+ogImage: https://cdn.hashnode.com/res/hashnode/image/upload/v1714199149583/ded055d6-90b0-49c9-8089-b964086667ef.png
 
 ---
 

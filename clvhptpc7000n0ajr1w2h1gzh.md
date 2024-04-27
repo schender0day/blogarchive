@@ -1,12 +1,12 @@
 ---
-title: "SQL Injection Fundamentals - SQL Map 02"
+title: "SQLMap Fundamentals - SQL Map 02"
 seoTitle: "Understanding SQL Injection: SQL Map Fundamentals"
 seoDescription: "Learn how to use SQLMap, an essential tool for detecting and exploiting SQL injection vulnerabilities in web applications"
 datePublished: Sat Apr 27 2024 06:23:19 GMT+0000 (Coordinated Universal Time)
 cuid: clvhptpc7000n0ajr1w2h1gzh
 slug: sql-injection-fundamentals-sql-map-02
-cover: https://cdn.hashnode.com/res/hashnode/image/upload/v1714199135069/6935bcd6-eff4-4b79-8ce9-dcecc812591d.png
-ogImage: https://cdn.hashnode.com/res/hashnode/image/upload/v1714199149583/ded055d6-90b0-49c9-8089-b964086667ef.png
+cover: https://cdn.hashnode.com/res/hashnode/image/upload/v1714199519602/fe530cde-6c3f-4fba-b096-5ffeb4ebf33f.png
+ogImage: https://cdn.hashnode.com/res/hashnode/image/upload/v1714199532934/fe3b0e7c-4f0e-4317-81ca-34ad5d277b69.png
 
 ---
 

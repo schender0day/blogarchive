@@ -22,7 +22,7 @@ Stored XSS is considered the most critical type of XSS vulnerability because it 
 
 Users visiting pages with Stored XSS vulnerabilities may inadvertently execute the attacker's malicious script, potentially leading to session hijacking, data theft, or unauthorized actions on their behalf.
 
-## 2\. Example of a Vulnerable Web Application
+## 2\. Example of a Vulnerable Web Application(Based on CPTS XSS Module Sample Application)
 
 ### 2.1. Setting up a simple "To-Do List" app
 

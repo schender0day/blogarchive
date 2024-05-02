@@ -1,10 +1,10 @@
 ---
-title: "Xss 101 -"
+title: "XSS 101 - Reflected XSS"
 seoTitle: "Understanding the Basics of XSS Vulnerabilities"
 seoDescription: "Explore the basics of non-persistent XSS, including types, characteristics, and mitigation strategies in web security"
 datePublished: Thu May 02 2024 05:46:22 GMT+0000 (Coordinated Universal Time)
 cuid: clvotpfv5000309l15hpphubd
-slug: xss-101
+slug: xss-101-reflected-xss
 
 ---
 

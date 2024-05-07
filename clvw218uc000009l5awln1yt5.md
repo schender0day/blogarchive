@@ -1,9 +1,9 @@
 ---
-title: "Exploiting Blind XSS to Steal Cookies: A Step-by-Step Guide"
+title: "XSS 101 - Blind XSS Step By Step Guide"
 seoDescription: "Learn how to exploit blind XSS vulnerabilities to steal cookies using a detailed, real-world step-by-step guide"
 datePublished: Tue May 07 2024 07:13:53 GMT+0000 (Coordinated Universal Time)
 cuid: clvw218uc000009l5awln1yt5
-slug: exploiting-blind-xss-to-steal-cookies-a-step-by-step-guide
+slug: xss-101-blind-xss-step-by-step-guide
 cover: https://cdn.hashnode.com/res/hashnode/image/upload/v1715066028086/a6c86cd1-f643-4939-80c4-0416964df7b2.png
 ogImage: https://cdn.hashnode.com/res/hashnode/image/upload/v1715066024418/53bdb807-f379-4def-87f4-dced4d309899.png
 
